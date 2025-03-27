@@ -1,36 +1,62 @@
 <!DOCTYPE html>
- <html lang="en">
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>DraftedTexts</title>
-     <link rel="stylesheet" href="style.css">
- </head>
- <body>
-     <h1>💌 DraftedTexts</h1>
-     
-     <!-- Message Form -->
-     <div class="form-container">
-         <input type="text" id="recipient" placeholder="Who is this for?" required>
-         <textarea id="message" placeholder="Write your message (50 chars max)" maxlength="50" required></textarea>
-         <label for="color">Choose Envelope Color:</label>
-         <input type="color" id="color">
-         <label for="font">Choose Font:</label>
-         <select id="font">
-             <option value="Arial">Arial</option>
-             <option value="Courier New">Courier New</option>
-             <option value="Times New Roman">Times New Roman</option>
-         </select>
-         <button onclick="submitMessage()">Submit</button>
-         <button onclick="upgradeEnvelope()">Upgrade for 3 DHS</button>
-     </div>
- 
-     <!-- Search Bar -->
-     <input type="text" id="search" placeholder="Search by recipient name..." oninput="searchMessages()">
- 
-     <!-- Messages Display -->
-     <div id="messages"></div>
- 
-     <script src="script.js"></script>
- </body>
- </html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DraftedTexts</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>DraftedTexts 💌</h1>
+
+    <div id="message-form">
+        <label>Enter the recipient's name:</label>
+        <input type="text" id="recipient" placeholder="Example: Aryan" maxlength="20">
+
+        <label>Type your message (50 characters max):</label>
+        <textarea id="message" placeholder="Write your message here..." maxlength="50"></textarea>
+
+        <label>Select an envelope color:</label>
+        <select id="color">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="pink">Pink</option>
+            <option value="purple">Purple</option>
+            <option value="yellow">Yellow</option>
+            <option value="green">Green</option>
+            <option value="orange">Orange</option>
+        </select>
+
+        <label>Select a font style:</label>
+        <select id="font">
+            <option value="Poppins">Poppins</option>
+            <option value="Arial">Arial</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+        </select>
+
+        <button id="submit">Send Message</button>
+
+        <div id="upgrade-section">
+            <h3>💎 Upgrade Benefits:</h3>
+            <ul>
+                <li>Increase message limit to **100 characters**</li>
+                <li>Add **your name as the sender**</li>
+                <li>Special **gold heart badge** 💛</li>
+                <li>Message **appears first in searches**</li>
+                <li>Access to **exclusive fonts & colors**</li>
+            </ul>
+            <button id="upgrade">Upgrade Envelope ⭐ (3 DHS)</button>
+        </div>
+    </div>
+
+    <h2>📬 Messages</h2>
+    <label>Search by exact recipient name:</label>
+    <input type="text" id="search" placeholder="Enter full name (Example: Aryan)">
+
+    <div id="envelope-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
