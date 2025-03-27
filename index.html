@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>DraftedTexts</title>
+     <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+     <h1>💌 DraftedTexts</h1>
+     
+     <!-- Message Form -->
+     <div class="form-container">
+         <input type="text" id="recipient" placeholder="Who is this for?" required>
+         <textarea id="message" placeholder="Write your message (50 chars max)" maxlength="50" required></textarea>
+         <label for="color">Choose Envelope Color:</label>
+         <input type="color" id="color">
+         <label for="font">Choose Font:</label>
+         <select id="font">
+             <option value="Arial">Arial</option>
+             <option value="Courier New">Courier New</option>
+             <option value="Times New Roman">Times New Roman</option>
+         </select>
+         <button onclick="submitMessage()">Submit</button>
+         <button onclick="upgradeEnvelope()">Upgrade for 3 DHS</button>
+     </div>
+ 
+     <!-- Search Bar -->
+     <input type="text" id="search" placeholder="Search by recipient name..." oninput="searchMessages()">
+ 
+     <!-- Messages Display -->
+     <div id="messages"></div>
+ 
+     <script src="script.js"></script>
+ </body>
+ </html>
