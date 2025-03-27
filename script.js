@@ -1,81 +1,51 @@
-let messages = [];
-
-function submitMessage() {
-    let recipient = document.getElementById("recipient").value;
-    let message = document.getElementById("message").value;
+document.getElementById("submit").addEventListener("click", function() {
+    let recipient = document.getElementById("recipient").value.trim();
+    let message = document.getElementById("message").value.trim();
     let color = document.getElementById("color").value;
     let font = document.getElementById("font").value;
 
-    if (recipient.trim() === "" || message.trim() === "") {
-        alert("Please fill in all fields.");
+    if (!recipient || !message) {
+        alert("Please enter recipient and message.");
         return;
     }
 
-    let newMessage = {
-        recipient: recipient,
-        message: message,
-        color: color,
-        font: font,
-        premium: false
-    };
-
-    messages.push(newMessage);
-    displayMessages();
-}
-
-function upgradeEnvelope() {
-    let recipient = document.getElementById("recipient").value;
-    let message = document.getElementById("message").value;
-    let color = document.getElementById("color").value;
-    let font = document.getElementById("font").value;
-
-    if (recipient.trim() === "" || message.trim() === "") {
-        alert("Please fill in all fields.");
-        return;
-    }
-
-    // Fake payment (Stripe will be added later)
-    let confirmPayment = confirm("Pay 3 DHS to upgrade this envelope?");
-    if (!confirmPayment) return;
-
-    let newMessage = {
-        recipient: recipient,
-        message: message,
-        color: color,
-        font: font,
-        premium: true
-    };
-
-    messages.push(newMessage);
-    displayMessages();
-}
-
-function displayMessages() {
-    let messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML = "";
-
-    messages.forEach((msg, index) => {
-        let envelope = document.createElement("div");
-        envelope.classList.add("envelope");
-        if (msg.premium) envelope.classList.add("premium");
-        envelope.style.background = msg.color;
-        envelope.innerHTML = `<p>${msg.recipient}</p>`;
-        envelope.onclick = () => openMessage(index);
-        messagesDiv.appendChild(envelope);
+    let newEnvelope = document.createElement("div");
+    newEnvelope.classList.add("envelope");
+    newEnvelope.style.backgroundColor = color;
+    newEnvelope.style.fontFamily = font;
+    newEnvelope.innerHTML = `<span class="heart">❤️</span> <br> To: ${recipient}`;
+    newEnvelope.addEventListener("click", function() {
+        alert(`Message for ${recipient}: ${message}`);
     });
-}
 
-function openMessage(index) {
-    let envelope = document.getElementsByClassName("envelope")[index];
-    envelope.innerHTML = `<p style="font-family:${messages[index].font}">${messages[index].message}</p>`;
-}
+    document.getElementById("envelope-container").appendChild(newEnvelope);
+    document.getElementById("recipient").value = "";
+    document.getElementById("message").value = "";
+});
 
-function searchMessages() {
-    let query = document.getElementById("search").value.toLowerCase();
-    let envelopes = document.getElementsByClassName("envelope");
+// Search Feature
+document.getElementById("search").addEventListener("input", function() {
+    let searchValue = this.value.trim().toLowerCase();
+    let envelopes = document.querySelectorAll(".envelope");
 
-    for (let i = 0; i < messages.length; i++) {
-        let recipient = messages[i].recipient.toLowerCase();
-        envelopes[i].style.display = recipient.includes(query) ? "block" : "none";
+    envelopes.forEach(env => {
+        let recipient = env.innerText.split("To: ")[1]?.trim().toLowerCase();
+        env.style.display = (recipient === searchValue) ? "block" : "none";
+    });
+});
+
+// Premium Upgrade Feature (with Stripe fix)
+document.getElementById("upgrade").addEventListener("click", function() {
+    let recipient = document.getElementById("recipient").value.trim();
+    let message = document.getElementById("message").value.trim();
+    let color = document.getElementById("color").value;
+    let font = document.getElementById("font").value;
+
+    if (!recipient || !message) {
+        alert("Enter recipient and message before upgrading.");
+        return;
     }
-}
+
+    // Redirect to Stripe payment
+    window.location.href = "https://buy.stripe.com/test_5kA6oD0x12345"; // Replace with actual Stripe link
+});
